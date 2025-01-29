@@ -39,6 +39,46 @@ preguntas = {
         "¿Existen programas de capacitación continua sobre control interno y gestión de riesgos?",
         "¿Se evalúan periódicamente las competencias del personal en materia de control interno?",
         "¿Los planes de carrera incluyen formación específica en controles internos?"
+    ],
+    "Rendición de cuentas en la organización": [
+        "¿Se han definido indicadores de desempeño relacionados con el cumplimiento de los controles internos?",
+        "¿Los incumplimientos a los controles internos tienen consecuencias claras y aplicables?",
+        "¿Los líderes de la organización fomentan la responsabilidad en el cumplimiento de controles internos?"
+    ],
+    "Especificación de objetivos claros": [
+        "¿Los objetivos de la empresa están alineados con el marco de control interno?",
+        "¿Los objetivos operativos, financieros y de cumplimiento están claramente definidos y comunicados?",
+        "¿Se evalúa periódicamente el logro de los objetivos estratégicos en relación con el control interno?"
+    ],
+    "Identificación y evaluación de riesgos": [
+        "¿Existe un proceso formal de identificación y evaluación de riesgos?",
+        "¿Se actualiza periódicamente la matriz de riesgos?",
+        "¿Se consideran factores internos y externos en la evaluación de riesgos?"
+    ],
+    "Consideración del potencial de fraude": [
+        "¿Se han implementado controles específicos para prevenir y detectar fraudes?",
+        "¿Se realiza un análisis de riesgo de fraude en las áreas críticas de la organización?",
+        "¿El canal de denuncias de fraudes es seguro y confidencial?"
+    ],
+    "Evaluación de cambios en el entorno": [
+        "¿La empresa analiza el impacto de los cambios regulatorios en sus controles internos?",
+        "¿Existen procedimientos para adaptar los controles internos a nuevas condiciones del mercado?",
+        "¿Se revisa periódicamente la estrategia de control interno ante cambios tecnológicos?"
+    ],
+    "Desarrollo de actividades de control": [
+        "¿Existen controles diseñados para mitigar los riesgos identificados?",
+        "¿Se documentan y comunican adecuadamente las actividades de control a los responsables?",
+        "¿Los controles se revisan y actualizan de manera periódica?"
+    ],
+    "Uso de tecnología en actividades de control": [
+        "¿La empresa utiliza herramientas tecnológicas para fortalecer los controles internos?",
+        "¿Se han automatizado procesos clave de control para mejorar eficiencia y precisión?",
+        "¿Se monitorean los sistemas tecnológicos para evitar brechas de seguridad?"
+    ],
+    "Implementación de políticas y procedimientos": [
+        "¿Las políticas y procedimientos de control interno están formalmente documentados?",
+        "¿Se revisan y actualizan periódicamente los procedimientos de control?",
+        "¿El personal conoce y aplica los procedimientos establecidos en su área de trabajo?"
     ]
 }
 
@@ -52,30 +92,4 @@ for principio, preguntas_lista in preguntas.items():
 
 if st.button("Calcular Nivel de Madurez"):
     df = pd.DataFrame(list(respuestas.items()), columns=["Pregunta", "Puntuación"])
-    
-    # Convertir las puntuaciones a valores numéricos
-    df["Puntuación"] = df["Puntuación"].apply(lambda x: int(x[0]))
-    
-    # Agrupar por principio y calcular la media
-    df_grouped = df.groupby(df["Pregunta"].apply(lambda x: x.split(" ")[0]))["Puntuación"].mean().reset_index()
-    
-    # Crear el gráfico de radar
-    fig = go.Figure()
-    fig.add_trace(go.Scatterpolar(
-        r=df_grouped["Puntuación"].tolist() + [df_grouped["Puntuación"].iloc[0]],
-        theta=df_grouped["Pregunta"].tolist() + [df_grouped["Pregunta"].iloc[0]],
-        fill='toself',
-        name='Nivel de Madurez'
-    ))
-    
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(visible=True, range=[1, 5])
-        ),
-        showlegend=False,
-        title="📌 Gráfico de Radar - Nivel de Madurez"
-    )
-    
-    st.plotly_chart(fig)
-    
     st.dataframe(df)
