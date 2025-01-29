@@ -72,6 +72,27 @@ else:
                 "¿Los objetivos operativos, financieros y de cumplimiento están claramente definidos y comunicados?",
                 "¿Se evalúa periódicamente el logro de los objetivos estratégicos en relación con el control interno?"
             ]
+        },
+        "Actividades de Control": {
+            "Desarrollo de actividades de control": [
+                "¿Existen controles diseñados para mitigar los riesgos identificados?",
+                "¿Se documentan y comunican adecuadamente las actividades de control a los responsables?",
+                "¿Los controles se revisan y actualizan de manera periódica?"
+            ]
+        },
+        "Información y Comunicación": {
+            "Obtención y uso de información relevante": [
+                "¿La empresa tiene un sistema eficaz para recopilar información relevante para la toma de decisiones?",
+                "¿Los datos utilizados en la evaluación de controles internos son precisos y actualizados?",
+                "¿Se cuenta con mecanismos para proteger la confidencialidad e integridad de la información?"
+            ]
+        },
+        "Monitoreo de Actividades": {
+            "Monitoreo continuo y evaluación de controles": [
+                "¿Se realizan auditorías internas o revisiones periódicas del sistema de control interno?",
+                "¿Existen indicadores clave para evaluar el desempeño de los controles internos?",
+                "¿Se documentan y analizan los hallazgos de auditoría para tomar acciones correctivas?"
+            ]
         }
     }
 
