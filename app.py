@@ -7,6 +7,10 @@ import plotly.express as px
 # Configuración de la página (debe ir al principio del script)
 st.set_page_config(page_title="Evaluación de Controles Internos", layout="wide")
 
+# Inicializar sesión para almacenar respuestas
+if "respuestas" not in st.session_state:
+    st.session_state["respuestas"] = {}
+
 # Sidebar de navegación
 st.sidebar.title("Navegación")
 paginas = ["Ambiente de Control", "Evaluación de Riesgos", "Actividades de Control", "Información y Comunicación", "Monitoreo de Actividades"]
@@ -14,7 +18,7 @@ seleccion = st.sidebar.radio("Selecciona un componente:", paginas)
 
 # Botón de cálculo en la barra lateral
 if st.sidebar.button("Calcular Nivel de Madurez"):
-    df = pd.DataFrame(list(respuestas.items()), columns=["Pregunta", "Puntuación"])
+    df = pd.DataFrame(list(st.session_state["respuestas"].items()), columns=["Pregunta", "Puntuación"])
     st.sidebar.dataframe(df)
 
 # Definir los principios de COSO 2013 agrupados en los 5 componentes
@@ -91,8 +95,7 @@ opciones_puntuacion = ["1 - No implementado", "2 - Parcialmente implementado", "
 
 # Mostrar las preguntas de la página seleccionada
 st.header(f"🛠 {seleccion}")
-respuestas = {}
 for principio, preguntas_lista in preguntas[seleccion].items():
     st.subheader(f"📋 {principio}")
     for pregunta in preguntas_lista:
-        respuestas[pregunta] = st.selectbox(pregunta, opciones_puntuacion)
+        st.session_state["respuestas"][pregunta] = st.selectbox(pregunta, opciones_puntuacion, key=pregunta)
