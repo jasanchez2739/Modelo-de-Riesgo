@@ -12,6 +12,11 @@ st.sidebar.title("Navegación")
 paginas = ["Ambiente de Control", "Evaluación de Riesgos", "Actividades de Control", "Información y Comunicación", "Monitoreo de Actividades"]
 seleccion = st.sidebar.radio("Selecciona un componente:", paginas)
 
+# Botón de cálculo en la barra lateral
+if st.sidebar.button("Calcular Nivel de Madurez"):
+    df = pd.DataFrame(list(respuestas.items()), columns=["Pregunta", "Puntuación"])
+    st.sidebar.dataframe(df)
+
 # Definir los principios de COSO 2013 agrupados en los 5 componentes
 preguntas = {
     "Ambiente de Control": {
@@ -91,7 +96,3 @@ for principio, preguntas_lista in preguntas[seleccion].items():
     st.subheader(f"📋 {principio}")
     for pregunta in preguntas_lista:
         respuestas[pregunta] = st.selectbox(pregunta, opciones_puntuacion)
-
-if st.button("Calcular Nivel de Madurez"):
-    df = pd.DataFrame(list(respuestas.items()), columns=["Pregunta", "Puntuación"])
-    st.dataframe(df)
