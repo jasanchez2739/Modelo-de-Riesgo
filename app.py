@@ -4,6 +4,9 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 
+# Configuración de la página (debe ir al principio del script)
+st.set_page_config(page_title="Evaluación de Controles Internos", layout="wide")
+
 # Definir estilos de PwC
 st.markdown("""
     <style>
@@ -13,8 +16,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Configuración de la página
-st.set_page_config(page_title="Evaluación de Controles Internos", layout="wide")
 st.title("📊 Evaluación del Nivel de Madurez de Controles Internos")
 
 # Definir los principios de COSO 2013 con preguntas
