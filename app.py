@@ -52,4 +52,30 @@ for principio, preguntas_lista in preguntas.items():
 
 if st.button("Calcular Nivel de Madurez"):
     df = pd.DataFrame(list(respuestas.items()), columns=["Pregunta", "Puntuación"])
+    
+    # Convertir las puntuaciones a valores numéricos
+    df["Puntuación"] = df["Puntuación"].apply(lambda x: int(x[0]))
+    
+    # Agrupar por principio y calcular la media
+    df_grouped = df.groupby(df["Pregunta"].apply(lambda x: x.split(" ")[0]))["Puntuación"].mean().reset_index()
+    
+    # Crear el gráfico de radar
+    fig = go.Figure()
+    fig.add_trace(go.Scatterpolar(
+        r=df_grouped["Puntuación"].tolist() + [df_grouped["Puntuación"].iloc[0]],
+        theta=df_grouped["Pregunta"].tolist() + [df_grouped["Pregunta"].iloc[0]],
+        fill='toself',
+        name='Nivel de Madurez'
+    ))
+    
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(visible=True, range=[1, 5])
+        ),
+        showlegend=False,
+        title="📌 Gráfico de Radar - Nivel de Madurez"
+    )
+    
+    st.plotly_chart(fig)
+    
     st.dataframe(df)
