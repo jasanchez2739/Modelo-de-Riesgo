@@ -75,6 +75,21 @@ else:
                 "¿El consejo de administración supervisa activamente el sistema de control interno?",
                 "¿El consejo de administración cuenta con miembros independientes con experiencia en auditoría y control?",
                 "¿El consejo revisa periódicamente la efectividad de los controles internos y toma acciones correctivas?"
+            ],
+            "Estructura organizativa y asignación de responsabilidades": [
+                "¿La empresa ha definido claramente roles y responsabilidades en materia de control interno?",
+                "¿Existen líneas de reporte claras para comunicar temas relacionados con control interno?",
+                "¿Las responsabilidades de control están segregadas para evitar conflictos de interés?"
+            ],
+            "Atracción, desarrollo y retención de talento": [
+                "¿Existen programas de capacitación continua sobre control interno y gestión de riesgos?",
+                "¿Se evalúan periódicamente las competencias del personal en materia de control interno?",
+                "¿Los planes de carrera incluyen formación específica en controles internos?"
+            ],
+            "Rendición de cuentas en la organización": [
+                "¿Se han definido indicadores de desempeño relacionados con el cumplimiento de los controles internos?",
+                "¿Los incumplimientos a los controles internos tienen consecuencias claras y aplicables?",
+                "¿Los líderes de la organización fomentan la responsabilidad en el cumplimiento de controles internos?"
             ]
         },
         "Evaluación de Riesgos": {
@@ -82,14 +97,27 @@ else:
                 "¿Los objetivos de la empresa están alineados con el marco de control interno?",
                 "¿Los objetivos operativos, financieros y de cumplimiento están claramente definidos y comunicados?",
                 "¿Se evalúa periódicamente el logro de los objetivos estratégicos en relación con el control interno?"
+            ],
+            "Identificación y evaluación de riesgos": [
+                "¿Existe un proceso formal de identificación y evaluación de riesgos?",
+                "¿Se actualiza periódicamente la matriz de riesgos?",
+                "¿Se consideran factores internos y externos en la evaluación de riesgos?"
+            ],
+            "Consideración del potencial de fraude": [
+                "¿Se han implementado controles específicos para prevenir y detectar fraudes?",
+                "¿Se realiza un análisis de riesgo de fraude en las áreas críticas de la organización?",
+                "¿El canal de denuncias de fraudes es seguro y confidencial?"
+            ],
+            "Evaluación de cambios en el entorno": [
+                "¿La empresa analiza el impacto de los cambios regulatorios en sus controles internos?",
+                "¿Existen procedimientos para adaptar los controles internos a nuevas condiciones del mercado?",
+                "¿Se revisa periódicamente la estrategia de control interno ante cambios tecnológicos?"
             ]
         }
     }
 
-    # Opciones de puntuación
     opciones_puntuacion = ["1 - No implementado", "2 - Parcialmente implementado", "3 - Moderadamente implementado", "4 - Casi totalmente implementado", "5 - Totalmente implementado"]
-
-    # Mostrar las preguntas de la página seleccionada
+    
     st.header(f"🛠 {seleccion}")
     for principio, preguntas_lista in preguntas.get(seleccion, {}).items():
         st.subheader(f"📋 {principio}")
