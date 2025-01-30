@@ -28,14 +28,25 @@ if seleccion == "Resultados":
         df = st.session_state["df_resultados"]
         st.dataframe(df)
         
-        # Crear diagrama de radar
-        categorias = list(df["Pregunta"])
-        valores = [int(p.split(" - ")[0]) for p in df["Puntuación"]]
+        # Calcular el promedio de cada componente
+        componentes = {
+            "Ambiente de Control": ["Compromiso con la integridad y valores éticos", "Independencia y supervisión del consejo", "Estructura organizativa y asignación de responsabilidades", "Atracción, desarrollo y retención de talento", "Rendición de cuentas en la organización"],
+            "Evaluación de Riesgos": ["Especificación de objetivos claros", "Identificación y evaluación de riesgos", "Consideración del potencial de fraude", "Evaluación de cambios en el entorno"],
+            "Actividades de Control": ["Desarrollo de actividades de control", "Uso de tecnología en actividades de control", "Implementación de políticas y procedimientos"],
+            "Información y Comunicación": ["Obtención y uso de información relevante", "Comunicación interna eficaz", "Comunicación externa sobre riesgos y control"],
+            "Monitoreo de Actividades": ["Monitoreo continuo y evaluación de controles", "Reporte y corrección de deficiencias de control"]
+        }
         
+        promedios = {}
+        for componente, principios in componentes.items():
+            valores = [int(df[df["Pregunta"].str.contains(principio)]["Puntuación"].iloc[0].split(" - ")[0]) for principio in principios if not df[df["Pregunta"].str.contains(principio)]["Puntuación"].empty]
+            promedios[componente] = sum(valores) / len(valores) if valores else 0
+        
+        # Crear diagrama de radar
         fig = go.Figure()
         fig.add_trace(go.Scatterpolar(
-            r=valores + [valores[0]],
-            theta=categorias + [categorias[0]],
+            r=list(promedios.values()) + [list(promedios.values())[0]],
+            theta=list(promedios.keys()) + [list(promedios.keys())[0]],
             fill='toself',
             name='Nivel de Madurez'
         ))
@@ -45,7 +56,7 @@ if seleccion == "Resultados":
                 radialaxis=dict(visible=True, range=[1, 5])
             ),
             showlegend=False,
-            title="📌 Gráfico de Radar - Nivel de Madurez"
+            title="📌 Gráfico de Radar - Nivel de Madurez por Componente"
         )
         
         st.plotly_chart(fig)
@@ -71,27 +82,6 @@ else:
                 "¿Los objetivos de la empresa están alineados con el marco de control interno?",
                 "¿Los objetivos operativos, financieros y de cumplimiento están claramente definidos y comunicados?",
                 "¿Se evalúa periódicamente el logro de los objetivos estratégicos en relación con el control interno?"
-            ]
-        },
-        "Actividades de Control": {
-            "Desarrollo de actividades de control": [
-                "¿Existen controles diseñados para mitigar los riesgos identificados?",
-                "¿Se documentan y comunican adecuadamente las actividades de control a los responsables?",
-                "¿Los controles se revisan y actualizan de manera periódica?"
-            ]
-        },
-        "Información y Comunicación": {
-            "Obtención y uso de información relevante": [
-                "¿La empresa tiene un sistema eficaz para recopilar información relevante para la toma de decisiones?",
-                "¿Los datos utilizados en la evaluación de controles internos son precisos y actualizados?",
-                "¿Se cuenta con mecanismos para proteger la confidencialidad e integridad de la información?"
-            ]
-        },
-        "Monitoreo de Actividades": {
-            "Monitoreo continuo y evaluación de controles": [
-                "¿Se realizan auditorías internas o revisiones periódicas del sistema de control interno?",
-                "¿Existen indicadores clave para evaluar el desempeño de los controles internos?",
-                "¿Se documentan y analizan los hallazgos de auditoría para tomar acciones correctivas?"
             ]
         }
     }
