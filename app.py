@@ -161,7 +161,7 @@ else:
         ]
     }
 }
-    opciones_puntuacion = ["1 - No implementado", "2 - Parcialmente implementado", "3 - Moderadamente implementado", "4 - Casi totalmente implementado", "5 - Totalmente implementado"]
+opciones_puntuacion = ["1 - No implementado", "2 - Parcialmente implementado", "3 - Moderadamente implementado", "4 - Casi totalmente implementado", "5 - Totalmente implementado"]
     
     st.header(f"🛠 {seleccion}")
     for principio, preguntas_lista in preguntas.get(seleccion, {}).items():
